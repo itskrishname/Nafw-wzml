@@ -1,6 +1,5 @@
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
-from googleapiclient.errors import HttpError
 from google_auth_httplib2 import AuthorizedHttp
 from googleapiclient.http import build_http
 from logging import getLogger, ERROR
@@ -121,29 +120,6 @@ class GoogleDriveHelper:
         parsed = urlparse(link)
         return parse_qs(parsed.query)["id"][0]
 
-    def set_permission(self, file_id):
-        permissions = {
-            "role": "reader",
-            "type": "anyone",
-            "value": None,
-            "withLink": True,
-        }
-        try:
-            return (
-                self.service.permissions()
-                .create(fileId=file_id, body=permissions, supportsAllDrives=True)
-                .execute()
-            )
-        except HttpError as err:
-            if err.resp.get("content-type", "").startswith("application/json"):
-                reason = (
-                    eval(err.content).get("error").get("errors")[0].get("reason")
-                )
-                if reason == "cannotModifyInheritedPermission":
-                    LOGGER.warning(f"Encountered 403 Forbidden with reason \"{reason}\"")
-                    return
-            raise err
-
     @retry(
         wait=wait_exponential(multiplier=2, min=3, max=6),
         stop=stop_after_attempt(3),
@@ -214,8 +190,6 @@ class GoogleDriveHelper:
             .execute()
         )
         file_id = file.get("id")
-        if not Config.IS_TEAM_DRIVE:
-            self.set_permission(file_id)
         LOGGER.info(f"Created G-Drive Folder:\nName: {file.get('name')}\nID: {file_id}")
         return file_id
 
