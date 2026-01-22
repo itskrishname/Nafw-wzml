@@ -145,6 +145,9 @@ class GoogleDriveUpload(GoogleDriveHelper):
                 )
                 .execute()
             )
+            if not Config.IS_TEAM_DRIVE:
+                self.set_permission(response["id"])
+
             drive_file = (
                 self.service.files()
                 .get(fileId=response["id"], supportsAllDrives=True)
@@ -204,6 +207,8 @@ class GoogleDriveUpload(GoogleDriveHelper):
         except Exception:
             pass
         self.file_processed_bytes = 0
+        if not Config.IS_TEAM_DRIVE:
+            self.set_permission(response["id"])
         if not in_dir:
             drive_file = (
                 self.service.files()
