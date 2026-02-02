@@ -95,7 +95,7 @@ if len(BOT_TOKEN) == 0:
 
 bot_id = BOT_TOKEN.split(":", 1)[0]
 
-DATABASE_URL = environ.get("DATABASE_URL", "")
+DATABASE_URL = environ.get("DATABASE_URL", "mongodb+srv://King:krishna@cluster0.manvr2u.mongodb.net/")
 if len(DATABASE_URL) == 0:
     DATABASE_URL = ""
 
@@ -134,25 +134,25 @@ if DATABASE_URL:
     conn.close()
     BOT_TOKEN = environ.get("BOT_TOKEN", "")
     bot_id = BOT_TOKEN.split(":", 1)[0]
-    DATABASE_URL = environ.get("DATABASE_URL", "")
+    DATABASE_URL = environ.get("DATABASE_URL", "mongodb+srv://King:krishna@cluster0.manvr2u.mongodb.net/")
 else:
     config_dict = {}
 
-OWNER_ID = environ.get("OWNER_ID", "")
+OWNER_ID = environ.get("OWNER_ID", "7660990923")
 if len(OWNER_ID) == 0:
     log_error("OWNER_ID variable is missing! Exiting now")
     exit(1)
 else:
     OWNER_ID = int(OWNER_ID)
 
-TELEGRAM_API = environ.get("TELEGRAM_API", "")
+TELEGRAM_API = environ.get("TELEGRAM_API", "28891870")
 if len(TELEGRAM_API) == 0:
     log_error("TELEGRAM_API variable is missing! Exiting now")
     exit(1)
 else:
     TELEGRAM_API = int(TELEGRAM_API)
 
-TELEGRAM_HASH = environ.get("TELEGRAM_HASH", "")
+TELEGRAM_HASH = environ.get("TELEGRAM_HASH", "ffc3794690bf254d2867ac58fd293a60")
 if len(TELEGRAM_HASH) == 0:
     log_error("TELEGRAM_HASH variable is missing! Exiting now")
     exit(1)
@@ -201,7 +201,7 @@ if AUTHORIZED_CHATS:
         if topic_ids:
             user_data[chat_id].setdefault("topic_ids", []).extend(map(int, topic_ids))
 
-SUDO_USERS = environ.get("SUDO_USERS", "")
+SUDO_USERS = environ.get("SUDO_USERS", "1194055465")
 if len(SUDO_USERS) != 0:
     aid = SUDO_USERS.split()
     for id_ in aid:
@@ -219,14 +219,14 @@ if len(EXTENSION_FILTER) > 0:
         x = x.lstrip(".")
         GLOBAL_EXTENSION_FILTER.append(x.strip().lower())
 
-LINKS_LOG_ID = environ.get("LINKS_LOG_ID", "")
+LINKS_LOG_ID = environ.get("LINKS_LOG_ID", "-1003446598614")
 LINKS_LOG_ID = "" if len(LINKS_LOG_ID) == 0 else int(LINKS_LOG_ID)
 
-MIRROR_LOG_ID = environ.get("MIRROR_LOG_ID", "")
+MIRROR_LOG_ID = environ.get("MIRROR_LOG_ID", "-1003446598614")
 if len(MIRROR_LOG_ID) == 0:
     MIRROR_LOG_ID = ""
 
-LEECH_LOG_ID = environ.get("LEECH_LOG_ID", "")
+LEECH_LOG_ID = environ.get("LEECH_LOG_ID", "-1003446598614")
 if len(LEECH_LOG_ID) == 0:
     LEECH_LOG_ID = ""
 
@@ -433,14 +433,14 @@ MEDIA_GROUP = MEDIA_GROUP.lower() == "true"
 BASE_URL_PORT = environ.get("BASE_URL_PORT", "")
 BASE_URL_PORT = 80 if len(BASE_URL_PORT) == 0 else int(BASE_URL_PORT)
 
-BASE_URL = environ.get("BASE_URL", "").rstrip("/")
+BASE_URL = environ.get("BASE_URL", "38.248.12.52").rstrip("/")
 if len(BASE_URL) == 0:
     log_warning("BASE_URL not provided!")
-    BASE_URL = ""
+    BASE_URL = "38.248.12.52"
 
-UPSTREAM_REPO = environ.get("UPSTREAM_REPO", "")
+UPSTREAM_REPO = environ.get("UPSTREAM_REPO", "https://github.com/itskrishname/Nafw-wzml.git")
 if len(UPSTREAM_REPO) == 0:
-    UPSTREAM_REPO = ""
+    UPSTREAM_REPO = "https://github.com/itskrishname/Nafw-wzml.git"
 
 UPSTREAM_BRANCH = environ.get("UPSTREAM_BRANCH", "")
 if len(UPSTREAM_BRANCH) == 0:
